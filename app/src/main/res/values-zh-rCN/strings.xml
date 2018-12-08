@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">智能投影</string>
+    <string name="home_title">首页</string>
+    <string name="show_all_apps">所有应用</string>
+    <string name="menu_wallpaper">壁纸</string>
+    <string name="menu_search">搜索</string>
+    <string name="menu_settings">设置</string>
+    <string name="wallpaper_instructions">点击选择壁纸</string>
+    <string name="low_battery_text">为保证投影正常使用，请先充电到15%以上电量。</string>
+    <string name="click_hdmi_too_fast">投影开启或关闭过程中，请稍后再试!</string>
+</resources>

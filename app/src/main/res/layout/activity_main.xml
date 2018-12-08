@@ -1,18 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff000000">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:id="@+id/iv_home"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@mipmap/ic_bg">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_company_log"
+            android:layout_width="170.0px"
+            android:layout_height="36.0px"
+            android:layout_marginLeft="37.0px"
+            android:layout_marginTop="16.0px"
+            android:background="@mipmap/ic_company_logo"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_movie"
+            android:layout_width="290.0px"
+            android:layout_height="400.0px"
+            android:layout_marginLeft="70.0px"
+            android:layout_marginTop="98.0px"
+            android:background="@mipmap/ic_movie" />
+
+        <ImageView
+            android:id="@+id/iv_tv"
+            android:layout_width="290.0px"
+            android:layout_height="400.0px"
+            android:layout_alignTop="@id/iv_movie"
+            android:layout_toRightOf="@id/iv_movie"
+            android:background="@mipmap/ic_tv" />
+
+        <ImageView
+            android:id="@+id/iv_social"
+            android:layout_width="290.0px"
+            android:layout_height="400.0px"
+            android:layout_alignTop="@+id/iv_tv"
+            android:layout_toRightOf="@+id/iv_tv"
+            android:background="@mipmap/ic_social" />
+
+        <ImageView
+            android:id="@+id/iv_file_manager"
+            android:layout_width="290.0px"
+            android:layout_height="400.0px"
+            android:layout_alignTop="@+id/iv_social"
+            android:layout_toRightOf="@+id/iv_social"
+            android:background="@mipmap/ic_file_manager" />
+
+        <ImageView
+            android:id="@+id/iv_air_link"
+            android:layout_width="234.0px"
+            android:layout_height="152.0px"
+            android:layout_below="@id/iv_movie"
+            android:layout_alignLeft="@id/iv_movie"
+            android:background="@drawable/ic_air_link_background" />
+
+        <ImageView
+            android:id="@+id/iv_miracast"
+            android:layout_width="234.0px"
+            android:layout_height="152.0px"
+            android:layout_below="@id/iv_movie"
+            android:layout_toRightOf="@id/iv_air_link"
+            android:background="@mipmap/ic_miracast" />
+
+        <ImageView
+            android:id="@+id/iv_business_office"
+            android:layout_width="234.0px"
+            android:layout_height="152.0px"
+            android:layout_below="@id/iv_movie"
+            android:layout_toRightOf="@id/iv_miracast"
+            android:background="@mipmap/ic_business_office" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="234.0px"
+            android:layout_height="152.0px"
+            android:layout_below="@id/iv_movie"
+            android:layout_toRightOf="@+id/iv_business_office"
+            android:background="@mipmap/ic_setting" />
+
+        <ImageView
+            android:id="@+id/iv_more_app"
+            android:layout_width="234.0px"
+            android:layout_height="152.0px"
+            android:layout_below="@+id/iv_movie"
+            android:layout_toRightOf="@id/iv_setting"
+            android:background="@mipmap/ic_more_app" />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/all_apps"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="25.0dip"
+        android:layout_marginBottom="25.0dip"
+        android:alwaysDrawnWithCache="true"
+        android:background="#ff000000"
+        android:columnWidth="78.0dip"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@drawable/grid_selector"
+        android:numColumns="6"
+        android:paddingLeft="15.0dip"
+        android:paddingRight="15.0dip"
+        android:persistentDrawingCache="all"
+        android:scrollbars="none"
+        android:stretchMode="spacingWidth"
+        android:visibility="invisible" />
+</FrameLayout>

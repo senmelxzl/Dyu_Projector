@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Dyu_Projector</string>
+    <string name="home_title">Home Sample</string>
+    <string name="show_all_apps">All</string>
+    <string name="menu_wallpaper">Wallpaper</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_settings">Settings</string>
+    <string name="wallpaper_instructions">Tap picture to set portrait wallpaper</string>
+    <string name="low_battery_text">In order to ensure the normal use of projection, please charge more than 15% of the electricity first.</string>
+    <string name="click_hdmi_too_fast">In the process of opening or closing the projection, please wait a moment.</string>
 </resources>

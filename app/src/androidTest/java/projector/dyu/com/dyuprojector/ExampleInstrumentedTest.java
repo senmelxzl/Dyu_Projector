@@ -1,4 +1,4 @@
-package projector.dyu.com.dyu_projector;
+package projector.dyu.com.dyuprojector;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

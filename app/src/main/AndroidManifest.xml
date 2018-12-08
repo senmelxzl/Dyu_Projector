@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="projector.dyu.com.dyu_projector">
+    package="projector.dyu.com.dyuprojector">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:supportsRtl="true" android:theme="@style/TranslucentTheme">
+        <activity android:name="projector.dyu.com.dyuprojector.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
