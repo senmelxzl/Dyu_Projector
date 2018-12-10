@@ -9,4 +9,10 @@
     <string name="wallpaper_instructions">点击选择壁纸</string>
     <string name="low_battery_text">为保证投影正常使用，请先充电到15%以上电量。</string>
     <string name="click_hdmi_too_fast">投影开启或关闭过程中，请稍后再试!</string>
+    <string name="app_not_exist">应用未安装</string>
+    <string name="no_apps">没有应用</string>
+    <string name="apps_title_movie">影视</string>
+    <string name="apps_title_game">游戏</string>
+    <string name="apps_title_social">社交</string>
+    <string name="apps_title_all">所有</string>
 </resources>

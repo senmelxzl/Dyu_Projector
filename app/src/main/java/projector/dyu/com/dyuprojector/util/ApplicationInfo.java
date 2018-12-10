@@ -1,15 +1,19 @@
-package projector.dyu.com.dyuprojector;
+package projector.dyu.com.dyuprojector.util;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
+/**
+ * app information
+ */
 public class ApplicationInfo {
+    public static final String TAG = "ApplicationInfo";
     public int appType = -1;
-    boolean filtered;
-    Drawable icon;
-    Intent intent;
-    CharSequence title;
+    public boolean filtered;
+    public Drawable icon;
+    public Intent intent;
+    public CharSequence title;
 
     public boolean equals(Object paramObject) {
         if (this == paramObject) ;
@@ -36,7 +40,7 @@ public class ApplicationInfo {
         }
     }
 
-    final void setActivity(ComponentName paramComponentName, int paramInt) {
+    public void setActivity(ComponentName paramComponentName, int paramInt) {
         this.intent = new Intent("android.intent.action.MAIN");
         this.intent.addCategory("android.intent.category.LAUNCHER");
         this.intent.setComponent(paramComponentName);
