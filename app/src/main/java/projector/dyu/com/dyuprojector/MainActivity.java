@@ -261,6 +261,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(localIntent1);
                 break;
             case R.id.iv_miracast:
+                localIntent1.setClassName("com.hpplay.happyplay.aw", "com.hpplay.happyplay.aw.WelcomeActivity");
+                localIntent1.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntent1);
+                break;
+            case R.id.iv_air_link:
                 if (batteryscale < 15 && !isAcCharge()) {
                     showToast(batteryscale);
                 }
@@ -270,17 +275,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     localIntent2.setAction("android.intent.action.ACTION_CLOSE_HDMI");
                     mHdmiEnabled = false;
                 } else {
-                    sendBroadcast(localIntent2);
                     localIntent2.setAction("android.intent.action.ACTION_OPEN_HDMI");
                     mHdmiEnabled = true;
                 }
+                sendBroadcast(localIntent2);
                 break;
             case R.id.iv_file_manager:
                 localIntent1.setClassName("com.mediatek.filemanager", "com.mediatek.filemanager.FileManagerOperationActivity");
                 localIntent1.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(localIntent1);
-                break;
-            case R.id.iv_more_app:
                 break;
             case R.id.iv_business_office:
                 localIntent1.setClassName("cn.wps.moffice_i18n_TV", "cn.wps.moffice.documentmanager.PreStartActivity");

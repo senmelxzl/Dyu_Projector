@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView android:textSize="12.0dip" android:textColor="@color/bright_text_dark_focused" android:ellipsize="end" android:gravity="bottom|center" android:background="@drawable/favorite_background" android:paddingTop="3.0dip" android:paddingBottom="3.0dip" android:focusable="true" android:clickable="true" android:layout_width="78.0dip" android:layout_height="65.0dip" android:maxLines="1"
-  xmlns:android="http://schemas.android.com/apk/res/android" />
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="78.0dip"
+    android:layout_height="65.0dip"
+    android:background="@drawable/favorite_background"
+    android:clickable="true"
+    android:ellipsize="end"
+    android:focusable="true"
+    android:gravity="bottom|center"
+    android:maxLines="1"
+    android:paddingTop="3.0dip"
+    android:paddingBottom="3.0dip"
+    android:textColor="@color/bright_text_dark_focused"
+    android:textSize="12.0dip" />
