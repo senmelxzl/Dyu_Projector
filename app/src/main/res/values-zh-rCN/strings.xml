@@ -16,4 +16,14 @@
     <string name="apps_title_social">社交</string>
     <string name="apps_title_all">所有</string>
     <string name="not_match_app_str">没有应用</string>
+
+    <string name="apps_movie">影视</string>
+    <string name="apps_game">游戏</string>
+    <string name="apps_social">市场</string>
+    <string name="apps_file">文件</string>
+
+    <string name="apps_air_link">无线投屏</string>
+    <string name="apps_office">商务办公</string>
+    <string name="apps_settings">设置</string>
+    <string name="apps_more_app">所有应用</string>
 </resources>

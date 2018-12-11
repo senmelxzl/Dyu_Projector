@@ -80,7 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_projector);
         initView();
         initEvent();
         registerIntentReceivers();
@@ -236,7 +236,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 showApplicationByType(2);
                 break;
             case R.id.iv_social:
-                showApplicationByType(3);
+                if (!UtilTools.checkApkExist(this, "com.en.dangbeimarket")) {
+                    new ToastUtil(this).AppNotExist();
+                    break;
+                }
+                localIntentC.setClassName("com.en.dangbeimarket", "com.dangbeimarket.activity.WelcomeActivity");
+                localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntentC);
                 break;
             default:
                 break;

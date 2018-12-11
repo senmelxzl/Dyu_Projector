@@ -27,6 +27,7 @@
             android:layout_marginTop="70.0px"
             android:background="@mipmap/ic_movie" />
 
+
         <ImageView
             android:id="@+id/iv_tv"
             android:layout_width="192.0px"

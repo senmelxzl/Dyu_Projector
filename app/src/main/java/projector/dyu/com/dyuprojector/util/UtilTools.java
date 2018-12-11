@@ -46,6 +46,11 @@ public class UtilTools {
                 || paramString.equals("com.android.settings")
                 || paramString.equals("com.iflytek.inputmethod")
                 || paramString.equals("com.android.mms")
+                || paramString.equals("com.android.contacts")
+                || paramString.equals("com.android.cellbroadcastreceiver")
+                || paramString.equals("com.android.calendar")
+                || paramString.equals("com.android.dialer")
+                || paramString.equals("com.android.email")
                 || paramString.equals("com.android.music")) {
             return false;
         }

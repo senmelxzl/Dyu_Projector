@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff000000">
+
+    <RelativeLayout
+        android:id="@+id/iv_home"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/ic_bg">
+
+        <TableLayout
+            android:id="@+id/quick_intent_f"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70.0px">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/image_sets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_movie"
+                            android:layout_width="192.0px"
+                            android:layout_height="266.0px"
+                            android:background="@mipmap/ic_movie" />
+
+                        <ImageView
+                            android:id="@+id/iv_tv"
+                            android:layout_width="192.0px"
+                            android:layout_height="266.0px"
+                            android:background="@mipmap/ic_tv" />
+
+                        <ImageView
+                            android:id="@+id/iv_social"
+                            android:layout_width="192.0px"
+                            android:layout_height="266.0px"
+                            android:background="@mipmap/ic_social" />
+
+                        <ImageView
+                            android:id="@+id/iv_file_manager"
+                            android:layout_width="192.0px"
+                            android:layout_height="266.0px"
+                            android:background="@mipmap/ic_file_manager" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/title_sets"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="25dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/apps_movie"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/apps_game"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/apps_social"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/apps_file"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+            </TableRow>
+        </TableLayout>
+
+
+        <TableLayout
+            android:id="@+id/quick_intent_s"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/quick_intent_f">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+
+                <FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/image_sets_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/iv_air_link"
+                            android:layout_width="155.0px"
+                            android:layout_height="101.0px"
+                            android:background="@drawable/ic_air_link_background"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/iv_miracast"
+                            android:layout_width="155.0px"
+                            android:layout_height="101.0px"
+                            android:background="@mipmap/ic_miracast" />
+
+                        <ImageView
+                            android:id="@+id/iv_business_office"
+                            android:layout_width="155.0px"
+                            android:layout_height="101.0px"
+                            android:layout_marginLeft="10dp"
+                            android:background="@mipmap/ic_business_office" />
+
+                        <ImageView
+                            android:id="@+id/iv_setting"
+                            android:layout_width="155.0px"
+                            android:layout_height="101.0px"
+                            android:layout_marginLeft="10dp"
+                            android:background="@mipmap/ic_setting" />
+
+                        <ImageView
+                            android:id="@+id/iv_more_app"
+                            android:layout_width="155.0px"
+                            android:layout_height="101.0px"
+                            android:layout_marginLeft="10dp"
+                            android:background="@mipmap/ic_more_app" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/title_sets_s"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="40dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="60dp"
+                            android:text="@string/apps_air_link"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="60dp"
+                            android:text="@string/apps_office"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="70dp"
+                            android:text="@string/apps_settings"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:paddingLeft="65dp"
+                            android:text="@string/apps_more_app"
+                            android:textColor="#FFFFFFFF"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </FrameLayout>
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/all_apps_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:background="@mipmap/ic_bg"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/apps_title_all"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/not_match_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <GridView
+            android:id="@+id/all_apps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15.0dip"
+            android:layout_marginBottom="15.0dip"
+            android:alwaysDrawnWithCache="true"
+            android:background="#00000000"
+            android:columnWidth="78.0dip"
+            android:drawSelectorOnTop="false"
+            android:listSelector="@drawable/grid_selector"
+            android:numColumns="6"
+            android:paddingLeft="10.0dip"
+            android:paddingRight="15.0dip"
+            android:persistentDrawingCache="all"
+            android:scrollbars="none"
+            android:stretchMode="spacingWidth"
+            android:verticalSpacing="15dp" />
+    </LinearLayout>
+</FrameLayout>
