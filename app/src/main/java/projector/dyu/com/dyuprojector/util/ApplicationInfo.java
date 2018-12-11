@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 
 /**
- * app information
+ * @author xiezhenlin
  */
 public class ApplicationInfo {
     public static final String TAG = "ApplicationInfo";

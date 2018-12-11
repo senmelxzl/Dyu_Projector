@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -44,16 +45,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private static final String TAG_FAVORITE = "favorite";
     private static final String TAG_FAVORITES = "favorites";
     private static final String TAG_PACKAGE = "package";
-    private static ArrayList<ApplicationInfo> mAppTypelications;
+    private static ArrayList<ApplicationInfo> mApplicationTypes;
     private static ArrayList<ApplicationInfo> mApplications;
     private static LinkedList<ApplicationInfo> mFavorites;
     private static boolean mHdmiEnabled = false;
     private static long mLastTime = 0L;
     private static int mRepeatTimes = 0;
-    private BatteryReceiver batteryReceiver = null;
-    private int batteryscale = 100;
-    private final BroadcastReceiver mApplicationsReceiver = new ApplicationsIntentReceiver();
     private boolean mBlockAnimation;
+    private BatteryReceiver batteryReceiver = new BatteryReceiver();
+    private BroadcastReceiver mApplicationsReceiver = new ApplicationsIntentReceiver();
+    private int batteryScale = 100;
     private int mCurrentType = -1;
     private GridView mGrid;
     private ApplicationsAdapter mApplicationsAdapter;
@@ -63,7 +64,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private LayoutAnimationController mShowLayoutAnimation;
 
     private View mHome, vApp_Container;
-    private TextView type_title;
+    private TextView type_title, not_match_app;
     private ImageView mIvAirLink;
     private ImageView mIvBusinessOffice;
     private ImageView mIvFileManager;
@@ -92,6 +93,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (batteryReceiver != null) {
             unregisterReceiver(batteryReceiver);
             batteryReceiver = null;
+        }
+        if (mApplicationsReceiver != null) {
+            unregisterReceiver(mApplicationsReceiver);
+            mApplicationsReceiver = null;
+        }
+        if (mApplications != null) {
+            mApplications.clear();
+            mApplications = null;
+        }
+        if (mApplicationTypes != null) {
+            mApplicationTypes.clear();
+            mApplicationTypes = null;
         }
     }
 
@@ -123,8 +136,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mGrid = findViewById(R.id.all_apps);
         vApp_Container = findViewById(R.id.all_apps_container);
         type_title = findViewById(R.id.type_title);
+        not_match_app = findViewById(R.id.not_match_app);
+        mGridEntry = AnimationUtils.loadAnimation(this, R.anim.grid_entry);
+        mGridExit = AnimationUtils.loadAnimation(this, R.anim.grid_exit);
     }
 
+    /**
+     * init widget event
+     */
     private void initEvent() {
         mIvBusinessOffice.setOnClickListener(this);
         mIvFileManager.setOnClickListener(this);
@@ -135,7 +154,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mIvAirLink.setOnClickListener(this);
         mIvSetting.setOnClickListener(this);
         mIvMoreApp.setOnClickListener(this);
-        mGrid.setOnItemClickListener(new ApplicationLauncher());
+    }
+
+    /**
+     * register all receivers
+     */
+    private void registerIntentReceivers() {
+        IntentFilter pkgIntentFilter = new IntentFilter("android.intent.action.PACKAGE_ADDED");
+        pkgIntentFilter.addAction("android.intent.action.PACKAGE_REMOVED");
+        pkgIntentFilter.addAction("android.intent.action.PACKAGE_CHANGED");
+        pkgIntentFilter.addDataScheme("package");
+        registerReceiver(mApplicationsReceiver, pkgIntentFilter);
+
+        IntentFilter batteryIntentFilter = new IntentFilter("android.intent.action.BATTERY_CHANGED");
+        registerReceiver(batteryReceiver, batteryIntentFilter);
     }
 
     @Override
@@ -162,8 +194,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(localIntentC);
                 break;
             case R.id.iv_air_link:
-                if (batteryscale < 15 && !isAcCharge()) {
-                    showToast(batteryscale);
+                if (batteryScale < 15 && !isAcCharge()) {
+                    showToast(batteryScale);
                 }
                 Intent localIntentHdmi = new Intent();
                 mHdmiEnabled = isHdmiEnable();
@@ -211,8 +243,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /**
+     * dispatch key event
+     *
+     * @param paramKeyEvent
+     * @return
+     */
     public boolean dispatchKeyEvent(KeyEvent paramKeyEvent) {
         if (paramKeyEvent.getKeyCode() == KeyEvent.KEYCODE_BACK && paramKeyEvent.getAction() != KeyEvent.ACTION_UP) {
+            if (mHideLayoutAnimation == null) {
+                mHideLayoutAnimation = AnimationUtils.loadLayoutAnimation(this, R.anim.hide_applications);
+            }
+            mGridExit.setAnimationListener(new HideGrid());
+            mGrid.startAnimation(mGridExit);
             vApp_Container.setVisibility(View.INVISIBLE);
             mHome.setVisibility(View.VISIBLE);
             return true;
@@ -220,10 +263,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
         return super.dispatchKeyEvent(paramKeyEvent);
     }
 
+    /**
+     * show app by type
+     *
+     * @param paramInt
+     */
     private void showApplicationByType(int paramInt) {
         if (mCurrentType != paramInt) {
             mCurrentType = paramInt;
             bindApplications();
+        }
+
+        if (mShowLayoutAnimation == null) {
+            mShowLayoutAnimation = AnimationUtils.loadLayoutAnimation(this, R.anim.show_applications);
+        }
+        mGridEntry.setAnimationListener(new ShowGrid());
+        mGrid.startAnimation(mGridEntry);
+        if (vApp_Container.getVisibility() != View.VISIBLE) {
+            showApplications(true);
+            type_title.setText(getAppsTypeTitle(paramInt));
+            type_title.setVisibility(View.VISIBLE);
+        } else {
+            showApplications(false);
+        }
+
+    }
+
+    /**
+     * get apps type title
+     *
+     * @param paramInt
+     * @return
+     */
+    private int getAppsTypeTitle(int paramInt) {
+        if (mApplicationTypes == null || mApplicationTypes.size() <= 0) {
+            not_match_app.setVisibility(View.VISIBLE);
+            not_match_app.setText(R.string.not_match_app_str);
+        } else {
+            not_match_app.setVisibility(View.GONE);
         }
         int type_string_id = R.string.apps_title_all;
         switch (paramInt) {
@@ -242,34 +319,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             default:
                 break;
         }
-        if (vApp_Container.getVisibility() != View.VISIBLE) {
-            showApplications(true);
-            type_title.setText(type_string_id);
-            type_title.setVisibility(View.VISIBLE);
-        } else {
-            showApplications(false);
-        }
-
-    }
-
-    private void bindApplications() {
-        Log.i(TAG, "bindApplications :bind apps start!");
-        int appSize = mApplications.size();
-        if (mAppTypelications != null) {
-            mAppTypelications.clear();
-        }
-        mAppTypelications = new ArrayList();
-        Log.i(TAG, "bindApplications :bind apps size: " + appSize);
-        for (int j = 0; j < appSize; j++) {
-            ApplicationInfo localApplicationInfo = mApplications.get(j);
-            Log.i(TAG, "bindApplications :bind apps add tile:" + localApplicationInfo.title);
-            if (localApplicationInfo.appType == mCurrentType) {
-                mAppTypelications.add(localApplicationInfo);
-            }
-        }
-        Log.i(TAG, "mAppTypelications :bind apps size: " + mAppTypelications.size());
-        mApplicationsAdapter.refresh(mAppTypelications, mCurrentType);
-        mGrid.setOnItemClickListener(new ApplicationLauncher());
+        return type_string_id;
     }
 
     /**
@@ -291,32 +341,64 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         Collections.sort(localList, new ResolveInfo.DisplayNameComparator(localPackageManager));
         Log.i(TAG, "localList size is " + localList.size());
-        if (mApplications == null) {
+        if (appListSize > 0) {
             mApplications = new ArrayList(appListSize);
-        }
-        ApplicationInfo localApplicationInfo;
-        ResolveInfo localResolveInfo;
-        for (int j = 0; j < appListSize; j++) {
-            localApplicationInfo = new ApplicationInfo();
-            localResolveInfo = (ResolveInfo) localList.get(j);
-            if (isNeedAddtoApplication(localResolveInfo.activityInfo.applicationInfo.packageName)) {
-                localApplicationInfo.title = localResolveInfo.loadLabel(localPackageManager);
-                localApplicationInfo.setActivity(new ComponentName(localResolveInfo.activityInfo.applicationInfo.packageName, localResolveInfo.activityInfo.name), Intent.FLAG_ACTIVITY_NEW_TASK);
-                localApplicationInfo.icon = localResolveInfo.activityInfo.loadIcon(localPackageManager);
-                localApplicationInfo.appType = getAppType(localResolveInfo.activityInfo.applicationInfo.packageName, localResolveInfo.activityInfo.applicationInfo.className);
-                mApplications.add(localApplicationInfo);
-                Log.i(TAG, "app type:" + localApplicationInfo.appType + " title:" + localApplicationInfo.title);
+            ApplicationInfo localApplicationInfo;
+            ResolveInfo localResolveInfo;
+            for (int j = 0; j < appListSize; j++) {
+                localApplicationInfo = new ApplicationInfo();
+                localResolveInfo = (ResolveInfo) localList.get(j);
+                if (UtilTools.isNeedAddtoApplication(localResolveInfo.activityInfo.applicationInfo.packageName)) {
+                    localApplicationInfo.title = localResolveInfo.loadLabel(localPackageManager);
+                    localApplicationInfo.setActivity(new ComponentName(localResolveInfo.activityInfo.applicationInfo.packageName, localResolveInfo.activityInfo.name), Intent.FLAG_ACTIVITY_NEW_TASK);
+                    localApplicationInfo.icon = localResolveInfo.activityInfo.loadIcon(localPackageManager);
+                    localApplicationInfo.appType = UtilTools.getAppType(localResolveInfo.activityInfo.applicationInfo.packageName, localResolveInfo.activityInfo.applicationInfo.className);
+                    mApplications.add(localApplicationInfo);
+                    Log.i(TAG, "loadApplications app type:" + localApplicationInfo.appType + " title:" + localApplicationInfo.title);
+                }
             }
+            mApplicationsAdapter = new ApplicationsAdapter(this, mApplications, mCurrentType);
+            mGrid.setAdapter(mApplicationsAdapter);
+            mGrid.setSelection(0);
         }
-        mApplicationsAdapter = new ApplicationsAdapter(this, mApplications, mCurrentType);
-        mGrid.setAdapter(mApplicationsAdapter);
-        mGrid.setSelection(0);
+
     }
 
-    private class ApplicationLauncher implements AdapterView.OnItemClickListener {
-        public void onItemClick(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
-            ApplicationInfo localApplicationInfo = mAppTypelications.get(paramInt);
-            startActivity(localApplicationInfo.intent);
+    /**
+     * bind apps
+     */
+    private void bindApplications() {
+        Log.i(TAG, "bindApplications :bind apps start!");
+        int appSize = mApplications.size();
+        if (mApplicationTypes != null) {
+            mApplicationTypes.clear();
+        }
+        mApplicationTypes = new ArrayList();
+        Log.i(TAG, "bindApplications :bind apps size: " + appSize);
+        for (int j = 0; j < appSize; j++) {
+            ApplicationInfo localApplicationInfo = mApplications.get(j);
+            if (localApplicationInfo.appType == mCurrentType) {
+                mApplicationTypes.add(localApplicationInfo);
+            }
+        }
+        Log.i(TAG, "mAppTypelications :bind type apps size: " + mApplicationTypes.size());
+        mApplicationsAdapter.refresh(mApplicationTypes, mCurrentType);
+        mGrid.setOnItemClickListener(new ApplicationLauncher());
+        Log.i(TAG, "bindApplications :bind apps end!");
+    }
+
+    /**
+     * show all apps
+     *
+     * @param paramBoolean
+     */
+    private void showApplications(boolean paramBoolean) {
+        if (paramBoolean) {
+            vApp_Container.setVisibility(View.VISIBLE);
+            mHome.setVisibility(View.GONE);
+        } else {
+            vApp_Container.setVisibility(View.INVISIBLE);
+            mHome.setVisibility(View.VISIBLE);
         }
     }
 
@@ -352,43 +434,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * show all apps
-     *
-     * @param paramBoolean
-     */
-    private void showApplications(boolean paramBoolean) {
-        if (paramBoolean) {
-            vApp_Container.setVisibility(View.VISIBLE);
-            mHome.setVisibility(View.GONE);
-        } else {
-            vApp_Container.setVisibility(View.INVISIBLE);
-            mHome.setVisibility(View.VISIBLE);
-        }
-    }
-
-    /**
-     * @param paramString1
-     * @param paramString2
-     * @return
-     */
-    private int getAppType(String paramString1, String paramString2) {
-        int i = 0;
-        if (paramString1 == null || paramString2 == null) {
-            i = -1;
-        }
-        if (paramString1 != null && paramString2 != null) {
-            if (paramString1.contains("video") || paramString1.contains("myvst") || paramString1.contains("sohu.tv")) {
-                i = 1;
-            } else if (paramString1.contains("game") || paramString2.contains("game")) {
-                i = 2;
-            } else if (paramString1.contains("mobileqq") || paramString1.contains("tencent.mm")) {
-                i = 3;
-            }
-        }
-        return i;
-    }
-
-    /**
      * check Ac charge type
      *
      * @return isAcCharge
@@ -409,35 +454,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * check hdmi status
+     * check HDMI status
      *
-     * @return ishdmienable
+     * @return HdmiEnable
      */
     private boolean isHdmiEnable() {
-        boolean ishdmienable = false;
+        boolean HdmiEnable = false;
         if (Settings.System.getInt(getContentResolver(), "hdmi_enable_status", 0) != 0) {
-            ishdmienable = true;
+            HdmiEnable = true;
         }
-        return ishdmienable;
+        return HdmiEnable;
     }
 
     /**
-     * register all receivers
+     * Application intent
      */
-    private void registerIntentReceivers() {
-        IntentFilter pkgIntentFilter = new IntentFilter("android.intent.action.PACKAGE_ADDED");
-        pkgIntentFilter.addAction("android.intent.action.PACKAGE_REMOVED");
-        pkgIntentFilter.addAction("android.intent.action.PACKAGE_CHANGED");
-        pkgIntentFilter.addDataScheme("package");
-        registerReceiver(this.mApplicationsReceiver, pkgIntentFilter);
 
-        IntentFilter batteryIntentFilter = new IntentFilter("android.intent.action.BATTERY_CHANGED");
-        batteryReceiver = new BatteryReceiver();
-        registerReceiver(batteryReceiver, batteryIntentFilter);
+    private class ApplicationLauncher implements AdapterView.OnItemClickListener {
+        public void onItemClick(AdapterView paramAdapterView, View paramView, int paramInt, long paramLong) {
+            ApplicationInfo localApplicationInfo = mApplicationTypes.get(paramInt);
+            startActivity(localApplicationInfo.intent);
+        }
     }
 
     /**
-     * app intent
+     * app change receiver
      */
     private class ApplicationsIntentReceiver extends BroadcastReceiver {
         public void onReceive(Context paramContext, Intent paramIntent) {
@@ -449,33 +490,46 @@ public class MainActivity extends Activity implements View.OnClickListener {
     /**
      * battery listener
      */
-    class BatteryReceiver extends BroadcastReceiver {
+    private class BatteryReceiver extends BroadcastReceiver {
         public void onReceive(Context paramContext, Intent paramIntent) {
             if ("android.intent.action.BATTERY_CHANGED".equals(paramIntent.getAction())) {
                 int i = paramIntent.getIntExtra("level", 0);
                 int j = paramIntent.getIntExtra("scale", 100);
-                MainActivity.this.batteryscale = (i * 100 / j);
+                batteryScale = (i * 100 / j);
             }
         }
     }
 
     /**
-     * check is need add
-     *
-     * @param paramString
-     * @return
+     * show grid items
      */
-    private boolean isNeedAddtoApplication(String paramString) {
-        if (paramString.equals("cn.wps.moffice_i18n_TV")
-                || paramString.equals("com.mediatek.filemanager")
-                || paramString.equals("com.mediatek.camera")
-                || paramString.equals("com.hpplay.happyplay.aw")
-                || paramString.equals("com.elinkway.tvlive2")
-                || paramString.equals("com.android.settings")
-                || paramString.equals("com.iflytek.inputmethod")
-                || paramString.equals("com.android.music")) {
-            return false;
+    private class ShowGrid implements Animation.AnimationListener {
+
+        public void onAnimationEnd(Animation paramAnimation) {
+            mBlockAnimation = false;
         }
-        return true;
+
+        public void onAnimationRepeat(Animation paramAnimation) {
+        }
+
+        public void onAnimationStart(Animation paramAnimation) {
+        }
+    }
+
+    /**
+     * hide grid items
+     */
+    private class HideGrid implements Animation.AnimationListener {
+
+        public void onAnimationEnd(Animation paramAnimation) {
+            mBlockAnimation = false;
+        }
+
+        public void onAnimationRepeat(Animation paramAnimation) {
+        }
+
+        public void onAnimationStart(Animation paramAnimation) {
+        }
     }
 }
+

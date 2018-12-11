@@ -7,6 +7,9 @@ import android.widget.Toast;
 
 import projector.dyu.com.dyuprojector.R;
 
+/**
+ * @author xiezhenlin
+ */
 public class ToastUtil extends Toast {
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you

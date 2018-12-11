@@ -11,10 +11,21 @@
         android:theme="@style/TranslucentTheme">
         <activity
             android:name="projector.dyu.com.dyuprojector.ui.MainActivity"
+            android:launchMode="singleTask"
+            android:clearTaskOnLaunch="true"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:resizeableActivity="true"
+            android:resumeWhilePausing="true"
+            android:taskAffinity=""
+            android:enabled="true"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

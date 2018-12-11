@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.PaintFlagsDrawFilter;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,29 +20,33 @@ import java.util.ArrayList;
 import projector.dyu.com.dyuprojector.R;
 import projector.dyu.com.dyuprojector.util.ApplicationInfo;
 
+/**
+ * app adapter class
+ * @author xiezhenlin
+ */
 public class ApplicationsAdapter extends ArrayAdapter<ApplicationInfo> {
     private final static String TAG = "ApplicationsAdapter";
     private Rect mOldBounds = new Rect();
-    private ArrayList<ApplicationInfo> listapps;
+    private ArrayList<ApplicationInfo> listApps;
     private Context aContext;
     private int aCurrentType;
 
     public ApplicationsAdapter(Context context, ArrayList<ApplicationInfo> objects, int mCurrentType) {
         super(context, 0, objects);
         Log.i(TAG, "ApplicationsAdapter init!");
-        listapps = objects;
+        listApps = objects;
         aContext = context;
         aCurrentType = mCurrentType;
     }
 
     @Override
     public int getCount() {
-        return (listapps != null && listapps.size() > 0) ? listapps.size() : 0;
+        return (listApps != null && listApps.size() > 0) ? listApps.size() : 0;
     }
 
 
     public void refresh(ArrayList<ApplicationInfo> list, int mCurrentType) {
-        listapps = list;
+        listApps = list;
         aCurrentType = mCurrentType;
         notifyDataSetChanged();
     }
@@ -54,8 +57,8 @@ public class ApplicationsAdapter extends ArrayAdapter<ApplicationInfo> {
     }
 
     public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-        ApplicationInfo localApplicationInfo = listapps.get(paramInt);
-        Log.i(TAG, "ApplicationsAdapter getView  start mAppTypelications: " + listapps.size());
+        ApplicationInfo localApplicationInfo = listApps.get(paramInt);
+        Log.i(TAG, "ApplicationsAdapter getView  start mAppTypelications: " + listApps.size());
         if (paramView == null) {
             LayoutInflater inflater = LayoutInflater.from(aContext);
             paramView = inflater.inflate(R.layout.application, null);
@@ -83,11 +86,7 @@ public class ApplicationsAdapter extends ArrayAdapter<ApplicationInfo> {
             } else {
                 i = (int) (f * j);
             }
-            if (((Drawable) localObject).getOpacity() == PixelFormat.OPAQUE) {
-                localConfig = Bitmap.Config.ARGB_8888;
-            } else {
-                localConfig = Bitmap.Config.RGB_565;
-            }
+            localConfig = Bitmap.Config.ARGB_8888;
             Bitmap localBitmap = Bitmap.createBitmap(i, j, localConfig);
             Canvas localCanvas = new Canvas(localBitmap);
             localCanvas.setDrawFilter(new PaintFlagsDrawFilter(4, 0));

@@ -15,4 +15,5 @@
     <string name="apps_title_game">游戏</string>
     <string name="apps_title_social">社交</string>
     <string name="apps_title_all">所有</string>
+    <string name="not_match_app_str">没有应用</string>
 </resources>
