@@ -17,13 +17,13 @@
     <string name="apps_title_all">所有</string>
     <string name="not_match_app_str">没有应用</string>
 
-    <string name="apps_movie">影视</string>
-    <string name="apps_game">游戏</string>
-    <string name="apps_social">市场</string>
-    <string name="apps_file">文件</string>
+    <string name="apps_movie">影视节目</string>
+    <string name="apps_game">游戏中心</string>
+    <string name="apps_social">应用商店</string>
+    <string name="apps_file">文件管理</string>
 
     <string name="apps_air_link">无线投屏</string>
     <string name="apps_office">商务办公</string>
-    <string name="apps_settings">设置</string>
+    <string name="apps_settings">系统设置</string>
     <string name="apps_more_app">所有应用</string>
 </resources>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#ff000000">
 
     <RelativeLayout
         android:id="@+id/iv_home"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:background="@mipmap/ic_bg">
 
@@ -15,7 +15,7 @@
             android:id="@+id/quick_intent_f"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70.0px">
+            android:layout_marginTop="50dp">
 
             <TableRow
                 android:layout_width="match_parent"
@@ -32,26 +32,26 @@
 
                         <ImageView
                             android:id="@+id/iv_movie"
-                            android:layout_width="192.0px"
-                            android:layout_height="266.0px"
+                            android:layout_width="192px"
+                            android:layout_height="266px"
                             android:background="@mipmap/ic_movie" />
 
                         <ImageView
                             android:id="@+id/iv_tv"
-                            android:layout_width="192.0px"
-                            android:layout_height="266.0px"
+                            android:layout_width="192px"
+                            android:layout_height="266px"
                             android:background="@mipmap/ic_tv" />
 
                         <ImageView
                             android:id="@+id/iv_social"
-                            android:layout_width="192.0px"
-                            android:layout_height="266.0px"
+                            android:layout_width="192px"
+                            android:layout_height="266px"
                             android:background="@mipmap/ic_social" />
 
                         <ImageView
                             android:id="@+id/iv_file_manager"
-                            android:layout_width="192.0px"
-                            android:layout_height="266.0px"
+                            android:layout_width="192px"
+                            android:layout_height="266px"
                             android:background="@mipmap/ic_file_manager" />
                     </LinearLayout>
 
@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:layout_marginBottom="25dp"
+                        android:layout_marginBottom="15dp"
                         android:orientation="horizontal">
 
                         <TextView
@@ -70,8 +70,7 @@
                             android:gravity="center"
                             android:text="@string/apps_movie"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -80,8 +79,7 @@
                             android:gravity="center"
                             android:text="@string/apps_game"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -90,8 +88,7 @@
                             android:gravity="center"
                             android:text="@string/apps_social"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -100,8 +97,7 @@
                             android:gravity="center"
                             android:text="@string/apps_file"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
                     </LinearLayout>
                 </FrameLayout>
             </TableRow>
@@ -130,35 +126,35 @@
 
                         <ImageView
                             android:id="@+id/iv_air_link"
-                            android:layout_width="155.0px"
-                            android:layout_height="101.0px"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:background="@drawable/ic_air_link_background"
                             android:visibility="gone" />
 
                         <ImageView
                             android:id="@+id/iv_miracast"
-                            android:layout_width="155.0px"
-                            android:layout_height="101.0px"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:background="@mipmap/ic_miracast" />
 
                         <ImageView
                             android:id="@+id/iv_business_office"
-                            android:layout_width="155.0px"
-                            android:layout_height="101.0px"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_marginLeft="10dp"
                             android:background="@mipmap/ic_business_office" />
 
                         <ImageView
                             android:id="@+id/iv_setting"
-                            android:layout_width="155.0px"
-                            android:layout_height="101.0px"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_marginLeft="10dp"
                             android:background="@mipmap/ic_setting" />
 
                         <ImageView
                             android:id="@+id/iv_more_app"
-                            android:layout_width="155.0px"
-                            android:layout_height="101.0px"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_marginLeft="10dp"
                             android:background="@mipmap/ic_more_app" />
                     </LinearLayout>
@@ -168,52 +164,59 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_weight="1"
-                            android:gravity="left"
-                            android:paddingLeft="60dp"
+                            android:ellipsize="end"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="40dp"
+                            android:layout_gravity="center_vertical"
                             android:text="@string/apps_air_link"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_weight="1"
-                            android:gravity="left"
-                            android:paddingLeft="60dp"
+                            android:ellipsize="end"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="40dp"
+                            android:singleLine="true"
+                            android:layout_gravity="center_vertical"
                             android:text="@string/apps_office"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_weight="1"
-                            android:gravity="left"
-                            android:paddingLeft="70dp"
+                            android:ellipsize="end"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="50dp"
+                            android:layout_gravity="center_vertical"
+                            android:singleLine="true"
                             android:text="@string/apps_settings"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
 
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="155px"
+                            android:layout_height="100px"
                             android:layout_weight="1"
-                            android:gravity="left"
-                            android:paddingLeft="65dp"
+                            android:ellipsize="end"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="left|center_vertical"
+                            android:paddingLeft="45dp"
+                            android:singleLine="true"
                             android:text="@string/apps_more_app"
                             android:textColor="#FFFFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </FrameLayout>
             </TableRow>
@@ -238,8 +241,7 @@
             android:gravity="center_horizontal"
             android:text="@string/apps_title_all"
             android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/not_match_app"
@@ -249,8 +251,7 @@
             android:layout_margin="10dp"
             android:gravity="center_horizontal"
             android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:textSize="16sp"
             android:visibility="gone" />
 
         <GridView
