@@ -209,11 +209,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 sendBroadcast(localIntentHdmi);
                 break;
             case R.id.iv_file_manager:
-                if (!UtilTools.checkApkExist(this, "com.mediatek.filemanager")) {
+                if (UtilTools.checkApkExist(this, "com.mediatek.filemanager")) {
+                    localIntentC.setClassName("com.mediatek.filemanager", "com.mediatek.filemanager.FileManagerOperationActivity");
+                } else if (UtilTools.checkApkExist(this, "com.android.documentsui")) {
+                    localIntentC.setClassName("com.android.documentsui", "com.android.documentsui.LauncherActivity");
+                } else {
                     new ToastUtil(this).AppNotExist();
                     break;
                 }
-                localIntentC.setClassName("com.mediatek.filemanager", "com.mediatek.filemanager.FileManagerOperationActivity");
                 localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(localIntentC);
                 break;
@@ -360,7 +363,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     localApplicationInfo.icon = localResolveInfo.activityInfo.loadIcon(localPackageManager);
                     localApplicationInfo.appType = UtilTools.getAppType(localResolveInfo.activityInfo.applicationInfo.packageName, localResolveInfo.activityInfo.applicationInfo.className);
                     mApplications.add(localApplicationInfo);
-                    Log.i(TAG, "loadApplications app type:" + localApplicationInfo.appType + " title:" + localApplicationInfo.title);
+                    Log.i(TAG, "dyu devlop: Package name:" + localResolveInfo.activityInfo.applicationInfo.packageName + " Class name:" + localResolveInfo.activityInfo.name);
                 }
             }
             mApplicationsAdapter = new ApplicationsAdapter(this, mApplications, mCurrentType);

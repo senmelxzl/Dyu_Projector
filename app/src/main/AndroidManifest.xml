@@ -15,7 +15,6 @@
             android:clearTaskOnLaunch="true"
             android:stateNotNeeded="true"
             android:windowSoftInputMode="adjustPan"
-            android:configChanges="keyboard|keyboardHidden|navigation"
             android:resizeableActivity="true"
             android:resumeWhilePausing="true"
             android:taskAffinity=""
