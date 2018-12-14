@@ -51,6 +51,8 @@ public class UtilTools {
                 || paramString.equals("com.android.calendar")
                 || paramString.equals("com.android.dialer")
                 || paramString.equals("com.android.email")
+                || paramString.equals("com.android.deskclock")
+                || paramString.equals("com.mediatek.mtklogger")
                 || paramString.equals("com.android.music")) {
             return false;
         }
