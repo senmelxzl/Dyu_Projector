@@ -65,8 +65,8 @@ public class ApplicationsAdapter extends ArrayAdapter<ApplicationInfo> {
         }
         TextView localTextView = paramView.findViewById(R.id.label);
         Object localObject = localApplicationInfo.icon;
-        int i = 100;
-        int j = 100;
+        int i = 130;
+        int j = 130;
         int k;
         int m;
         float f;

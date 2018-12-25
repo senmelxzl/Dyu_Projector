@@ -53,6 +53,8 @@ public class UtilTools {
                 || paramString.equals("com.android.email")
                 || paramString.equals("com.android.deskclock")
                 || paramString.equals("com.mediatek.mtklogger")
+                || paramString.equals("com.android.messaging")
+                || paramString.equals("com.mediatek.mtklogger")
                 || paramString.equals("com.android.music")) {
             return false;
         }
