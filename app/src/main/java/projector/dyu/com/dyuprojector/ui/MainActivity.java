@@ -37,7 +37,7 @@ import projector.dyu.com.dyuprojector.util.UtilTools;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener, View.OnFocusChangeListener {
     private static final String TAG = "MainActivity";
     private static final int ACTION_CLICK_TIME_THRESHOLD = 4000;
     private static final String DEFAULT_FAVORITES_PATH = "etc/favorites.xml";
@@ -154,6 +154,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mIvAirLink.setOnClickListener(this);
         mIvSetting.setOnClickListener(this);
         mIvMoreApp.setOnClickListener(this);
+
+        mIvBusinessOffice.setOnFocusChangeListener(this);
+        mIvFileManager.setOnFocusChangeListener(this);
+        mIvSocial.setOnFocusChangeListener(this);
+        mIvMiracast.setOnFocusChangeListener(this);
+        mIvTv.setOnFocusChangeListener(this);
+        mIvMovie.setOnFocusChangeListener(this);
+        mIvSetting.setOnFocusChangeListener(this);
+        mIvMoreApp.setOnFocusChangeListener(this);
     }
 
     /**
@@ -185,11 +194,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 startActivity(localIntentC);
                 break;
             case R.id.iv_miracast:
-                if (!UtilTools.checkApkExist(this, "com.hpplay.happyplay.aw")) {
+                if (!UtilTools.checkApkExist(this, "com.koushikdutta.cast.receiver")) {
                     new ToastUtil(this).AppNotExist();
                     break;
                 }
-                localIntentC.setClassName("com.hpplay.happyplay.aw", "com.hpplay.happyplay.aw.WelcomeActivity");
+                localIntentC.setClassName("com.koushikdutta.cast.receiver", "com.koushikdutta.cast.receiver.MainActivity");
                 localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(localIntentC);
                 break;
@@ -209,6 +218,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 sendBroadcast(localIntentHdmi);
                 break;
             case R.id.iv_file_manager:
+                if (!UtilTools.checkApkExist(this, "com.netflix.ninja")) {
+                    new ToastUtil(this).AppNotExist();
+                    break;
+                }
+                localIntentC.setClassName("com.netflix.ninja", "com.netflix.ninja.MainActivity");
+                localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntentC);
+                break;
+            case R.id.iv_business_office:
                 if (UtilTools.checkApkExist(this, "com.mediatek.filemanager")) {
                     localIntentC.setClassName("com.mediatek.filemanager", "com.mediatek.filemanager.FileManagerOperationActivity");
                 } else if (UtilTools.checkApkExist(this, "com.android.documentsui")) {
@@ -220,30 +238,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(localIntentC);
                 break;
-            case R.id.iv_business_office:
-                if (!UtilTools.checkApkExist(this, "cn.wps.moffice_i18n_TV")) {
-                    new ToastUtil(this).AppNotExist();
-                    break;
-                }
-                localIntentC.setClassName("cn.wps.moffice_i18n_TV", "cn.wps.moffice.documentmanager.PreStartActivity");
-                localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                startActivity(localIntentC);
-                break;
             case R.id.iv_more_app:
                 showApplicationByType(0);
                 break;
             case R.id.iv_movie:
-                showApplicationByType(1);
-                break;
-            case R.id.iv_tv:
-                showApplicationByType(2);
-                break;
-            case R.id.iv_social:
-                if (!UtilTools.checkApkExist(this, "com.en.dangbeimarket")) {
+                //showApplicationByType(1);
+                if (!UtilTools.checkApkExist(this, "com.amazon.avod.thirdpartyclient")) {
                     new ToastUtil(this).AppNotExist();
                     break;
                 }
-                localIntentC.setClassName("com.en.dangbeimarket", "com.dangbeimarket.activity.WelcomeActivity");
+                localIntentC.setClassName("com.amazon.avod.thirdpartyclient", "com.amazon.avod.thirdpartyclient.LauncherActivity");
+                localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntentC);
+                break;
+            case R.id.iv_tv:
+                //showApplicationByType(2);
+                if (!UtilTools.checkApkExist(this, "com.google.android.youtube.tv")) {
+                    new ToastUtil(this).AppNotExist();
+                    break;
+                }
+                localIntentC.setClassName("com.google.android.youtube.tv", "com.google.android.apps.youtube.tv.activity.TvGuideActivity");
+                localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                startActivity(localIntentC);
+                break;
+            case R.id.iv_social:
+                if (!UtilTools.checkApkExist(this, "cm.aptoidetv.pt")) {
+                    new ToastUtil(this).AppNotExist();
+                    break;
+                }
+                localIntentC.setClassName("cm.aptoidetv.pt", "cm.aptoidetv.pt.activity.MainActivity");
                 localIntentC.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 startActivity(localIntentC);
                 break;
@@ -473,6 +496,70 @@ public class MainActivity extends Activity implements View.OnClickListener {
             HdmiEnable = true;
         }
         return HdmiEnable;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()) {
+            case R.id.iv_movie:
+                if (hasFocus) {
+                    mIvMovie.setBackgroundResource(R.drawable.select_edge);
+                } else {
+                    mIvMovie.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_tv:
+                if (hasFocus) {
+                    mIvTv.setBackgroundResource(R.drawable.select_edge);
+                } else {
+                    mIvTv.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_social:
+                if (hasFocus) {
+                    mIvSocial.setBackgroundResource(R.drawable.select_edge);
+                } else {
+                    mIvSocial.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_file_manager:
+                if (hasFocus) {
+                    mIvFileManager.setBackgroundResource(R.drawable.select_edge);
+                } else {
+                    mIvFileManager.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_setting:
+                if (hasFocus) {
+                    mIvSetting.setBackgroundResource(R.drawable.select_edge_b);
+                } else {
+                    mIvSetting.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_more_app:
+                if (hasFocus) {
+                    mIvMoreApp.setBackgroundResource(R.drawable.select_edge_b);
+                } else {
+                    mIvMoreApp.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_miracast:
+                if (hasFocus) {
+                    mIvMiracast.setBackgroundResource(R.drawable.select_edge_b);
+                } else {
+                    mIvMiracast.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            case R.id.iv_business_office:
+                if (hasFocus) {
+                    mIvBusinessOffice.setBackgroundResource(R.drawable.select_edge_b);
+                } else {
+                    mIvBusinessOffice.setBackgroundResource(R.drawable.unselect_edge);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     /**

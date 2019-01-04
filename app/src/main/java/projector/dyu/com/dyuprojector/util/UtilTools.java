@@ -32,7 +32,7 @@ public class UtilTools {
     }
 
     /**
-     * check is need add
+     * check is need add to all apps
      *
      * @param paramString
      * @return
@@ -55,12 +55,30 @@ public class UtilTools {
                 || paramString.equals("com.mediatek.mtklogger")
                 || paramString.equals("com.android.messaging")
                 || paramString.equals("com.mediatek.mtklogger")
+                || paramString.equals("cm.aptoidetv.pt")
                 || paramString.equals("com.android.music")) {
             return false;
         }
         return true;
     }
 
+
+    /**
+     * check is need add to home title
+     *
+     * @param paramString
+     * @return
+     */
+    public static boolean isNeedAddtoHomeApps(String paramString) {
+        if (paramString.equals("cn.wps.moffice_i18n_TV")
+                || paramString.equals("com.mediatek.filemanager")
+                || paramString.equals("com.mediatek.camera")
+                || paramString.equals("com.hpplay.happyplay.aw")
+                || paramString.equals("com.android.music")) {
+            return true;
+        }
+        return false;
+    }
     /**
      * @param paramString1
      * @param paramString2
