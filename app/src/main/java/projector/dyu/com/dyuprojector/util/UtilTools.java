@@ -56,6 +56,9 @@ public class UtilTools {
                 || paramString.equals("com.android.messaging")
                 || paramString.equals("com.mediatek.mtklogger")
                 || paramString.equals("cm.aptoidetv.pt")
+                || paramString.equals("com.amazon.avod.thirdpartyclient")
+                || paramString.equals("com.google.android.youtube.tv")
+                || paramString.equals("com.netflix.ninja")
                 || paramString.equals("com.android.music")) {
             return false;
         }
